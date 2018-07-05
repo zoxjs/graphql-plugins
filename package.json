@@ -1,0 +1,38 @@
+{
+  "name": "graphql-plugins",
+  "version": "1.0.0",
+  "description": "Plugin-based GraphQL system",
+  "author": "Zoran Ravic <contact@zoranravic.com> (zoranravic.com)",
+  "license": "MIT",
+  "repository": "zoxjs/graphql-plugins",
+  "homepage": "http://zox.zoranravic.com/",
+  "main": "index.js",
+  "files": [
+    "LICENSE",
+    "Readme.md",
+    "index.js",
+    "index.d.ts",
+    "lib/**/*.js",
+    "lib/**/*.d.ts"
+  ],
+  "keywords": [
+    "graphql",
+    "plugin",
+    "plugins",
+    "tools",
+    "manage",
+    "system",
+    "oop"
+  ],
+  "devDependencies": {
+    "@types/graphql": "^0.13.1",
+    "@types/node": "^10.3.4",
+    "graphql": "^0.13.2",
+    "zox-plugins": "^1.0.0"
+  },
+  "plugins": {
+    "dirs": [
+      "lib/Plugins"
+    ]
+  }
+}
