@@ -5,7 +5,7 @@
   "author": "Zoran Ravic <contact@zoranravic.com> (zoranravic.com)",
   "license": "MIT",
   "repository": "zoxjs/graphql-plugins",
-  "homepage": "http://zoxjs.github.io/docs/graphql-intro",
+  "homepage": "http://zoxjs.com/docs/graphql-intro",
   "main": "index.js",
   "files": [
     "LICENSE",
