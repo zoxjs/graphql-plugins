@@ -30,6 +30,9 @@
     "graphql": "^0.13.2",
     "zox-plugins": "^1.0.0"
   },
+  "scripts": {
+    "prepublishOnly": "tsc"
+  },
   "plugins": {
     "dirs": [
       "lib/Plugins"
