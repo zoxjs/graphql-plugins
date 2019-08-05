@@ -6,16 +6,16 @@ scalar Date
 `;
 
 @Scalar('Date', DateDef)
-export class DateScalar implements IScalar<Date, number>
+export class DateScalar implements IScalar<Date, string>
 {
-    public serialize(value: Date): number
+    public serialize(value: Date): string
     {
-        return value.valueOf();
+        return value.toUTCString();
     }
 
-    public parseValue(value: number): Date | void
+    public parseValue(value: string): Date | void
     {
-        if (typeof value === 'number')
+        if (typeof value === 'string')
         {
             return new Date(value);
         }
@@ -23,13 +23,18 @@ export class DateScalar implements IScalar<Date, number>
 
     public parseLiteral(valueNode: ValueNode, variables?: { [p:string]: any }): Date | void
     {
-        if (valueNode.kind === Kind.INT)
+        if (valueNode.kind === Kind.STRING)
         {
-            const value = parseInt(valueNode.value);
-            if (!isNaN(value))
+            const result = new Date(valueNode.value);
+            if (isNaN(result.getTime()))
             {
-                return new Date(value);
+                throw new TypeError('Invalid date');
             }
+            if (valueNode.value !== result.toUTCString())
+            {
+                throw new TypeError('Invalid date format, only accepts: YYYY-MM-DDTHH:mm:ss.sssZ or ±YYYYYY-MM-DDTHH:mm:ss.sssZ');
+            }
+            return result;
         }
     }
 }
