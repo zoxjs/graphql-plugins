@@ -1,11 +1,11 @@
-import {IScalar, Scalar} from "../PluginManagers/ScalarPluginManager";
+import {IScalar, PureScalar} from "../PluginManagers/ScalarPluginManager";
 import {Kind, ValueNode} from "graphql";
 
 export const DateDef = `
 scalar Date
 `;
 
-@Scalar('Date', DateDef)
+@PureScalar('Date', DateDef)
 export class DateScalar implements IScalar<Date, string>
 {
     public serialize(value: Date): string

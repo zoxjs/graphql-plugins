@@ -1,11 +1,11 @@
-import {IScalar, Scalar} from "../PluginManagers/ScalarPluginManager";
+import {IScalar, PureScalar} from "../PluginManagers/ScalarPluginManager";
 import {Kind, ObjectValueNode, ValueNode} from "graphql";
 
 export const AnyDef = `
 scalar Any
 `;
 
-@Scalar('Any', AnyDef)
+@PureScalar('Any', AnyDef)
 export class AnyScalar implements IScalar<any, any>
 {
     public serialize = identity;

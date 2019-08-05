@@ -1,11 +1,11 @@
-import {IScalar, Scalar} from "../PluginManagers/ScalarPluginManager";
+import {IScalar, PureScalar} from "../PluginManagers/ScalarPluginManager";
 import {Kind, ValueNode} from "graphql";
 
 export const RegExpDef = `
 scalar RegExp
 `;
 
-@Scalar('RegExp', RegExpDef)
+@PureScalar('RegExp', RegExpDef)
 export class RegExpScalar implements IScalar<RegExp, string>
 {
     public serialize(value: RegExp): string

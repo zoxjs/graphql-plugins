@@ -1,4 +1,4 @@
-import {IScalar, Scalar} from "../PluginManagers/ScalarPluginManager";
+import {IScalar, PureScalar} from "../PluginManagers/ScalarPluginManager";
 import {Kind, ValueNode} from "graphql";
 import {parseObject} from "./AnyScalar";
 
@@ -6,7 +6,7 @@ export const ObjectDef = `
 scalar Object
 `;
 
-@Scalar('Object', ObjectDef)
+@PureScalar('Object', ObjectDef)
 export class ObjectScalar implements IScalar<Object, Object>
 {
     public serialize = ensureObject;

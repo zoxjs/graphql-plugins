@@ -7,6 +7,7 @@ const pluginKey = Symbol('GraphQL Resolver Type');
 
 export type ScalarOptions = {
     name: string
+    pure?: boolean
 } & TypeDefsOptions
 
 export interface IScalar<P = any, S= any>
@@ -30,6 +31,7 @@ export class ScalarPluginManager extends TypeDefsPluginManager<IClass<IScalar>, 
         const resolverClassNames: { [type:string]: string } = {};
         for (const pluginDefinition of this.pluginDefinitions)
         {
+            const pure = pluginDefinition.data.pure;
             if (resolvers[pluginDefinition.data.name])
             {
                 console.warn(
@@ -43,15 +45,15 @@ export class ScalarPluginManager extends TypeDefsPluginManager<IClass<IScalar>, 
                 options.decorate(instance);
             }
             resolvers[pluginDefinition.data.name] = {
-                serialize: instance.serialize.bind(instance),
+                serialize: pure ? instance.serialize : instance.serialize.bind(instance),
             };
             if (instance.parseValue)
             {
-                resolvers[pluginDefinition.data.name].parseValue = instance.parseValue.bind(instance);
+                resolvers[pluginDefinition.data.name].parseValue = pure ? instance.parseValue : instance.parseValue.bind(instance);
             }
             if (instance.parseLiteral)
             {
-                resolvers[pluginDefinition.data.name].parseLiteral = instance.parseLiteral.bind(instance);
+                resolvers[pluginDefinition.data.name].parseLiteral = pure ? instance.parseLiteral : instance.parseLiteral.bind(instance);
             }
             resolverClassNames[pluginDefinition.data.name] = pluginDefinition.pluginClass.name;
         }
@@ -62,4 +64,9 @@ export class ScalarPluginManager extends TypeDefsPluginManager<IClass<IScalar>, 
 export function Scalar(name: string, typeDefs?: string | Array<string>)
 {
     return PluginSetup<IScalar, ScalarOptions>(pluginKey, {name, typeDefs});
+}
+
+export function PureScalar(name: string, typeDefs?: string | Array<string>)
+{
+    return PluginSetup<IScalar, ScalarOptions>(pluginKey, {name, typeDefs, pure: true});
 }
