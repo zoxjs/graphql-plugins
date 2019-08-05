@@ -3,8 +3,9 @@ import {TypeDefsOptions, TypeDefsPluginManager} from "./TypeDefsPluginManager";
 import {GraphQLObjectType, GraphQLTypeResolver} from "graphql/type/definition";
 import {IClass, ResolverBuildOptions} from "./ResolverPluginManager";
 import Maybe from "graphql/tsutils/Maybe";
-import {MaybePromise} from "graphql/jsutils/MaybePromise";
 import {GraphQLResolveInfo} from "graphql";
+
+export type MaybePromise<T> = T | Promise<T>;
 
 const pluginKey = Symbol('GraphQL Resolver Type');
 

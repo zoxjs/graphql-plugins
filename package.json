@@ -25,10 +25,10 @@
     "oop"
   ],
   "devDependencies": {
-    "@types/graphql": "^0.13.1",
-    "@types/node": "^10.3.4",
-    "graphql": "^0.13.2",
-    "zox-plugins": "^1.0.0"
+    "@types/graphql": "^14.2.2",
+    "@types/node": "^12.0.12",
+    "graphql": "^14.4.2",
+    "zox-plugins": "^1.0.7"
   },
   "scripts": {
     "prepublishOnly": "tsc"
