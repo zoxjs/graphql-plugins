@@ -1,8 +1,8 @@
-import {graphql, parse} from "graphql";
-import {GraphQLSchema} from "graphql/type/schema";
-import {SubscriptionManager} from "../lib/SubscriptionManager";
-import {DocumentNode} from "graphql/language/ast";
-import {GraphQLArgs} from "graphql/graphql";
+import {graphql, parse} from 'graphql';
+import {GraphQLSchema} from 'graphql/type/schema';
+import {SubscriptionManager} from '../lib/SubscriptionManager';
+import {DocumentNode} from 'graphql/language/ast';
+import {GraphQLArgs} from 'graphql/graphql';
 
 export function testQuery(args: GraphQLArgs)
 {

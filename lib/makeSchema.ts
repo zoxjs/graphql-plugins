@@ -5,8 +5,8 @@ import {
     GraphQLObjectType,
     GraphQLScalarType,
     GraphQLUnionType
-} from "graphql/type/definition";
-import {GraphQLSchema} from "graphql/type/schema";
+} from 'graphql/type/definition';
+import {GraphQLSchema} from 'graphql/type/schema';
 import {
     parse,
     buildASTSchema,
@@ -14,10 +14,10 @@ import {
     ParseOptions,
     BuildSchemaOptions,
     GraphQLTypeResolver
-} from "graphql";
-import Maybe from "graphql/tsutils/Maybe";
-import {IResolvers} from "./Interfaces";
-import {IScalar} from "./PluginManagers/ScalarPluginManager";
+} from 'graphql';
+import Maybe from 'graphql/tsutils/Maybe';
+import {IResolvers} from './Interfaces';
+import {IScalar} from './PluginManagers/ScalarPluginManager';
 import {mergeExtensions} from './mergeExtensions';
 
 export function makeSchema(typeDefs: string, resolvers: IResolvers): GraphQLSchema
@@ -27,7 +27,7 @@ export function makeSchema(typeDefs: string, resolvers: IResolvers): GraphQLSche
     return schema;
 }
 
-export function buildCompleteSchema(source: string | Source, options?: ParseOptions & BuildSchemaOptions)
+export function buildCompleteSchema(source: string | Source, options?: ParseOptions & BuildSchemaOptions): GraphQLSchema
 {
     return buildASTSchema(mergeExtensions(parse(source, options)), options);
 }

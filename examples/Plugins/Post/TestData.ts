@@ -1,4 +1,4 @@
-import {Post} from "./Post";
+import {Post} from './Post';
 
 
 export const posts: Array<Post> = [

@@ -1,12 +1,13 @@
-import {ExecutionResult, GraphQLSchema, subscribe} from "graphql";
-import {GraphQLFieldResolver} from "graphql/type/definition";
-import {DocumentNode} from "graphql/language/ast";
-import Maybe from "graphql/tsutils/Maybe";
+import {ExecutionResult, GraphQLSchema, subscribe} from 'graphql';
+import {GraphQLFieldResolver} from 'graphql/type/definition';
+import {DocumentNode} from 'graphql/language/ast';
+import Maybe from 'graphql/tsutils/Maybe';
 
 // returns false if already canceled
 export type CancellationToken = () => boolean;
 
-export type SubscribeArgs = {
+export interface SubscribeArgs
+{
     document: DocumentNode
     rootValue?: any
     contextValue?: any
@@ -16,7 +17,10 @@ export type SubscribeArgs = {
     subscribeFieldResolver?: Maybe<GraphQLFieldResolver<any, any>>
 }
 
-export type SubscribeArgsFull = SubscribeArgs & { schema: GraphQLSchema }
+export interface SubscribeArgsFull extends SubscribeArgs
+{
+    schema: GraphQLSchema
+}
 
 export class SubscriptionManager
 {

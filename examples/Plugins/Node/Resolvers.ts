@@ -1,12 +1,12 @@
-import {GraphQLResolveInfo} from "graphql";
-import {NodeDef} from "./Node";
-import {Query} from "../../../lib/PluginManagers/QueryPluginManager";
-import {Post} from "../Post/Post";
-import {posts} from "../Post/TestData";
-import {ResolverBase} from "../../../lib/ResolverBase";
-import {User} from "../User/User";
-import {users} from "../User/TestData";
-import {IResolveType, ResolveType} from "../../../lib/PluginManagers/ResolveTypePluginManager";
+import {GraphQLResolveInfo} from 'graphql';
+import {NodeDef} from './Node';
+import {Query} from '../../../lib/PluginManagers/QueryPluginManager';
+import {Post} from '../Post/Post';
+import {posts} from '../Post/TestData';
+import {ResolverBase} from '../../../lib/ResolverBase';
+import {User} from '../User/User';
+import {users} from '../User/TestData';
+import {IResolveType, ResolveType} from '../../../lib/PluginManagers/ResolveTypePluginManager';
 
 @ResolveType('Node', NodeDef)
 export class ResolveNode implements IResolveType

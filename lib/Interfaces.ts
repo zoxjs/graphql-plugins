@@ -2,7 +2,7 @@ import {
     GraphQLResolveInfo,
     GraphQLTypeResolver,
 } from 'graphql';
-import {IScalar} from "./PluginManagers/ScalarPluginManager";
+import {IScalar} from './PluginManagers/ScalarPluginManager';
 
 export interface IResolverOptions<TSource = any, TContext = any> {
     resolve?: IFieldResolver<TSource, TContext>;

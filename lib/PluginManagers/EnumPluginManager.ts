@@ -1,9 +1,10 @@
-import {IPluginSource, PluginDefinition, PluginSetup} from "zox-plugins";
-import {IClass, ResolverBuildOptions} from "./ResolverPluginManager";
+import {IPluginSource, PluginDefinition, PluginSetup} from 'zox-plugins';
+import {IClass, ResolverBuildOptions} from './ResolverPluginManager';
 
 const pluginKey = Symbol('GraphQL Enum Type');
 
-export type EnumDefs = {
+export interface EnumDefs
+{
     typeDefs: Array<string>
     values: { [key:string]: IEnum }
 }

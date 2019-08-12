@@ -1,14 +1,15 @@
-import {PluginSetup} from "zox-plugins";
-import {TypeDefsOptions, TypeDefsPluginManager} from "./TypeDefsPluginManager";
-import {IClass, ResolverBuildOptions} from "./ResolverPluginManager";
-import {ValueNode} from "graphql/language/ast";
+import {PluginSetup} from 'zox-plugins';
+import {TypeDefsOptions, TypeDefsPluginManager} from './TypeDefsPluginManager';
+import {IClass, ResolverBuildOptions} from './ResolverPluginManager';
+import {ValueNode} from 'graphql/language/ast';
 
 const pluginKey = Symbol('GraphQL Resolver Type');
 
-export type ScalarOptions = {
+export interface ScalarOptions extends TypeDefsOptions
+{
     name: string
     pure?: boolean
-} & TypeDefsOptions
+}
 
 export interface IScalar<P = any, S= any>
 {

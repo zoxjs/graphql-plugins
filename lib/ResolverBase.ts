@@ -1,5 +1,5 @@
-import {GraphQLResolveInfo} from "graphql";
-import {IResolver} from "./PluginManagers/ResolverPluginManager";
+import {GraphQLResolveInfo} from 'graphql';
+import {IResolver} from './PluginManagers/ResolverPluginManager';
 
 export interface IResolverAccess
 {

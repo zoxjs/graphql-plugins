@@ -1,10 +1,11 @@
-import {PostDef} from "../Post/Post";
-import {Node, NodeDef} from "../Node/Node";
+import {PostDef} from '../Post/Post';
+import {Node, NodeDef} from '../Node/Node';
 
-export type User = {
+export interface User extends Node
+{
     name: string
     friends: Array<number>
-} & Node;
+}
 
 // language=GraphQL
 export const UserDef = `

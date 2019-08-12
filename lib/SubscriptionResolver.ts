@@ -1,19 +1,20 @@
-import {GraphQLResolveInfo} from "graphql";
-import {$$asyncIterator} from "iterall";
-import {EventEmitter} from "events";
+import {GraphQLResolveInfo} from 'graphql';
+import {$$asyncIterator} from 'iterall';
+import {EventEmitter} from 'events';
 
 export interface ISubscriptionResolver<T = any, R = T>
 {
-    subscribe(source, args, context, info: GraphQLResolveInfo): AsyncIterator<T>;
-    resolve(source, args, context, info: GraphQLResolveInfo): R;
+    subscribe(source, args, context, info: GraphQLResolveInfo): AsyncIterator<T>
+    resolve(source, args, context, info: GraphQLResolveInfo): R
 }
 
 export interface ISubscriptionEventFilter
 {
-    filterValue(value, source, args, context, info: GraphQLResolveInfo): boolean;
+    filterValue(value, source, args, context, info: GraphQLResolveInfo): boolean
 }
 
-export type SubscriptionState = {
+export interface SubscriptionState
+{
     done: boolean
 }
 

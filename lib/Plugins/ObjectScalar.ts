@@ -1,6 +1,6 @@
-import {IScalar, PureScalar} from "../PluginManagers/ScalarPluginManager";
-import {Kind, ValueNode} from "graphql";
-import {parseObject} from "./AnyScalar";
+import {IScalar, PureScalar} from '../PluginManagers/ScalarPluginManager';
+import {Kind, ValueNode} from 'graphql';
+import {parseObject} from './AnyScalar';
 
 export const ObjectDef = `
 scalar Object

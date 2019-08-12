@@ -1,23 +1,25 @@
-import {IPluginSource} from "zox-plugins";
-import {GraphQLSchema} from "graphql";
-import {makeSchema} from "./makeSchema";
+import {IPluginSource} from 'zox-plugins';
+import {GraphQLSchema} from 'graphql';
+import {makeSchema} from './makeSchema';
 import {
     MutationPluginManager,
     QueryPluginManager,
     SubscriptionPluginManager
-} from "./PluginManagers/QueryPluginManager";
-import {ResolverBuildOptions, ResolverPluginManager} from "./PluginManagers/ResolverPluginManager";
-import {ResolveTypePluginManager} from "./PluginManagers/ResolveTypePluginManager";
-import {ScalarPluginManager} from "./PluginManagers/ScalarPluginManager";
-import {IResolvers} from "./Interfaces";
-import {EnumPluginManager} from "./PluginManagers/EnumPluginManager";
-import {ResolversPluginManager} from "./PluginManagers/ResolversPluginManager";
+} from './PluginManagers/QueryPluginManager';
+import {ResolverBuildOptions, ResolverPluginManager} from './PluginManagers/ResolverPluginManager';
+import {ResolveTypePluginManager} from './PluginManagers/ResolveTypePluginManager';
+import {ScalarPluginManager} from './PluginManagers/ScalarPluginManager';
+import {IResolvers} from './Interfaces';
+import {EnumPluginManager} from './PluginManagers/EnumPluginManager';
+import {ResolversPluginManager} from './PluginManagers/ResolversPluginManager';
 
-export type AssembledSchema = {
+export interface AssembledSchema extends AssembledSchemaData
+{
     schema: GraphQLSchema
-} & AssembledSchemaData
+}
 
-export type AssembledSchemaData = {
+export interface AssembledSchemaData
+{
     typeDefs: string,
     resolvers: IResolvers
 }
@@ -89,9 +91,9 @@ export function assembleSchemaData(pluginDiscovery: IPluginSource, options?: Res
     return {typeDefs, resolvers};
 }
 
-export function joinDistinct(typeDefLists: Array<Array<string>>): string
+export function joinDistinct(typeDefLists: string[][]): string
 {
-    const typeDefs: Array<string> = [];
+    const typeDefs: string[] = [];
     for (const list of typeDefLists)
     {
         for (const typeDef of list)

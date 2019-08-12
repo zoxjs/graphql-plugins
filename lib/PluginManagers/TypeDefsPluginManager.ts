@@ -1,4 +1,4 @@
-import {PluginDefinition, IPluginSource} from "zox-plugins";
+import {PluginDefinition, IPluginSource} from 'zox-plugins';
 
 export type MaybeDeepArray<T> = T | T[] | T[][] | T[][][]
 

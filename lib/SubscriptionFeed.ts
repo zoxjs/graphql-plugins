@@ -1,5 +1,5 @@
-import {ExecutionResult, subscribe} from "graphql";
-import {CancellationToken, SubscribeArgsFull} from "./SubscriptionManager";
+import {ExecutionResult, subscribe} from 'graphql';
+import {CancellationToken, SubscribeArgsFull} from './SubscriptionManager';
 
 export function createSubscriptionFeed(args: SubscribeArgsFull, feedHandler: (any) => void): Promise<CancellationToken>
 {

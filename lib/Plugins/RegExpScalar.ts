@@ -1,5 +1,5 @@
-import {IScalar, PureScalar} from "../PluginManagers/ScalarPluginManager";
-import {Kind, ValueNode} from "graphql";
+import {IScalar, PureScalar} from '../PluginManagers/ScalarPluginManager';
+import {Kind, ValueNode} from 'graphql';
 
 export const RegExpDef = `
 scalar RegExp

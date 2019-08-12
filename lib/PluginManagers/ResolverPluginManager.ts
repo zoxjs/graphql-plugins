@@ -1,20 +1,23 @@
-import {PluginSetup} from "zox-plugins";
-import {IResolvers} from "../Interfaces";
-import {TypeDefsOptions, TypeDefsPluginManager} from "./TypeDefsPluginManager";
-import {GraphQLResolveInfo} from "graphql";
+import {PluginSetup} from 'zox-plugins';
+import {IResolvers} from '../Interfaces';
+import {TypeDefsOptions, TypeDefsPluginManager} from './TypeDefsPluginManager';
+import {GraphQLResolveInfo} from 'graphql';
 
 const pluginKey = Symbol('GraphQL Resolver');
 
-export type ResolverOptions = {
+export interface ResolverOptions extends TypeDefsOptions
+{
     type: string
     field: string
-} & TypeDefsOptions
+}
 
-export type ResolverBuildOptions = {
+export interface ResolverBuildOptions
+{
     decorate?: (resolverClass: any) => void
 }
 
-export type IClass<T> = {
+export interface IClass<T>
+{
     new (): T
 }
 

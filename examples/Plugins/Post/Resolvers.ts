@@ -1,13 +1,13 @@
-import {ResolverBase} from "../../../lib/ResolverBase";
-import {GraphQLResolveInfo} from "graphql";
-import {User} from "../User/User";
-import {users} from "../User/TestData";
-import {Post, PostTypeDefs} from "./Post";
-import {Resolver} from "../../../lib/PluginManagers/ResolverPluginManager";
-import {Mutation, Query, Subscription} from "../../../lib/PluginManagers/QueryPluginManager";
-import {posts} from "./TestData";
-import {SubscriptionEventResolverBase} from "../../../lib/SubscriptionResolver";
-import {EventEmitter} from "events";
+import {ResolverBase} from '../../../lib/ResolverBase';
+import {GraphQLResolveInfo} from 'graphql';
+import {User} from '../User/User';
+import {users} from '../User/TestData';
+import {Post, PostTypeDefs} from './Post';
+import {Resolver} from '../../../lib/PluginManagers/ResolverPluginManager';
+import {Mutation, Query, Subscription} from '../../../lib/PluginManagers/QueryPluginManager';
+import {posts} from './TestData';
+import {SubscriptionEventResolverBase} from '../../../lib/SubscriptionResolver';
+import {EventEmitter} from 'events';
 
 @Resolver('Post', 'user', PostTypeDefs)
 export class UserResolver extends ResolverBase

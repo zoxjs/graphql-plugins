@@ -1,12 +1,13 @@
-import {UserDef} from "../User/User";
-import {Node, NodeDef} from "../Node/Node";
-import {DateDef} from "../../../lib/Plugins/DateScalar";
+import {UserDef} from '../User/User';
+import {Node, NodeDef} from '../Node/Node';
+import {DateDef} from '../../../lib/Plugins/DateScalar';
 
-export type Post = {
+export interface Post extends Node
+{
     user: number
     text: string
     date: Date
-} & Node;
+}
 
 // language=GraphQL
 export const PostDef = `

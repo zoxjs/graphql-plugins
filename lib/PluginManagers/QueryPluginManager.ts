@@ -1,23 +1,25 @@
-import {PluginSetup} from "zox-plugins";
-import {IResolverObject, IResolvers} from "../Interfaces";
-import {TypeDefsOptions, TypeDefsPluginManager} from "./TypeDefsPluginManager";
-import {ISubscriptionResolver} from "../SubscriptionResolver";
-import {IClass, IResolver, ResolverBuildOptions} from "./ResolverPluginManager";
-import {Lexer, Source} from "graphql";
-import {createLexer} from "graphql/language";
+import {PluginSetup} from 'zox-plugins';
+import {IResolverObject, IResolvers} from '../Interfaces';
+import {TypeDefsOptions, TypeDefsPluginManager} from './TypeDefsPluginManager';
+import {ISubscriptionResolver} from '../SubscriptionResolver';
+import {IClass, IResolver, ResolverBuildOptions} from './ResolverPluginManager';
+import {Lexer, Source} from 'graphql';
+import {createLexer} from 'graphql/language';
 
 const pluginKeyQuery = Symbol('GraphQL Query');
 const pluginKeyMutation = Symbol('GraphQL Mutation');
 const pluginKeySubscription = Symbol('GraphQL Subscription');
 
-export type QueryOptions = {
+export interface QueryOptions extends TypeDefsOptions
+{
     field: string
-} & TypeDefsOptions
+}
 
-export type Build = {
-    typeDef: string,
+export interface Build
+{
+    typeDef: string
     resolvers: IResolvers
-};
+}
 
 export abstract class QueryPluginManagerBase<TResolver> extends TypeDefsPluginManager<IClass<TResolver>, QueryOptions>
 {

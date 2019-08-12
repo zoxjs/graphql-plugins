@@ -1,11 +1,11 @@
-import {users} from "./TestData";
-import {GraphQLResolveInfo} from "graphql";
-import {ResolverBase} from "../../../lib/ResolverBase";
-import {User, UserTypeDefs} from "./User";
-import {Resolver} from "../../../lib/PluginManagers/ResolverPluginManager";
-import {Query} from "../../../lib/PluginManagers/QueryPluginManager";
-import {Post} from "../Post/Post";
-import {posts} from "../Post/TestData";
+import {users} from './TestData';
+import {GraphQLResolveInfo} from 'graphql';
+import {ResolverBase} from '../../../lib/ResolverBase';
+import {User, UserTypeDefs} from './User';
+import {Resolver} from '../../../lib/PluginManagers/ResolverPluginManager';
+import {Query} from '../../../lib/PluginManagers/QueryPluginManager';
+import {Post} from '../Post/Post';
+import {posts} from '../Post/TestData';
 
 @Resolver('User', 'friends', UserTypeDefs)
 export class FriendsResolver extends ResolverBase

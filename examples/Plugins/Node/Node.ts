@@ -1,7 +1,8 @@
 
-export type Node = {
+export interface Node
+{
     id: number
-};
+}
 
 // language=GraphQL
 export const NodeDef = `
