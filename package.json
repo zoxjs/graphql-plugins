@@ -1,6 +1,6 @@
 {
   "name": "graphql-plugins",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Plugin-based GraphQL system",
   "author": "Zoran Ravic <contact@zoranravic.com> (zoranravic.com)",
   "license": "MIT",
