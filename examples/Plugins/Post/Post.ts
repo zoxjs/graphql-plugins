@@ -8,6 +8,7 @@ export type Post = {
     date: Date
 } & Node;
 
+// language=GraphQL
 export const PostDef = `
 type Post implements Node
 {

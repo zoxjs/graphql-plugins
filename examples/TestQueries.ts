@@ -39,7 +39,8 @@ export function testList(schema: GraphQLSchema)
     // testQuery({schema, source: postSetDate, operationName: 'GetNewList'});
     // testQuery({schema, source: reqexpSearch});
     // testQuery({schema, source: enumExample});
-    testListSubscription(schema);
+    testQuery({schema, source: itemExample});
+    // testListSubscription(schema);
 }
 
 export function testListSubscription(schema: GraphQLSchema)
@@ -51,6 +52,7 @@ export function testListSubscription(schema: GraphQLSchema)
     setTimeout(() => testQuery({schema, source: postCreate}), 4000);
 }
 
+// language=GraphQL
 const simpleQuery = `
 {
   users(offset:1,limit:2) {
@@ -77,6 +79,7 @@ const simpleQuery = `
 }
 `;
 
+// language=GraphQL
 const postCreate = `
 mutation {
   op1: postCreate(user: 1, text: "Example text") {
@@ -88,6 +91,7 @@ mutation {
 }
 `;
 
+// language=GraphQL
 const postSetDate = `
 mutation SetDate($date: Date!) {
   op1: postSetDate(id: 1, date: 1528236000123) {
@@ -107,6 +111,7 @@ query GetNewList {
 }
 `;
 
+// language=GraphQL
 const postSubscription = `
 subscription {
   post(id: 4) {
@@ -115,6 +120,7 @@ subscription {
 }
 `;
 
+// language=GraphQL
 const interfaceQuery = `
 {
   postsAndUsersInterface {
@@ -132,6 +138,7 @@ const interfaceQuery = `
 }
 `;
 
+// language=GraphQL
 const unionQuery = `
 {
   postsAndUsersUnion {
@@ -150,6 +157,7 @@ const unionQuery = `
 }
 `;
 
+// language=GraphQL
 const reqexpSearch = `
 {
   postsSearch(search: "/my/i") {
@@ -162,8 +170,25 @@ const reqexpSearch = `
 }
 `;
 
+// language=GraphQL
 const enumExample = `
 {
   accessValue(access: ADMIN)
+}
+`;
+
+// language=GraphQL
+const itemExample = `
+{
+    items {
+        id
+        name
+        uppercaseName
+        lowercaseName
+        related {
+            id
+            name
+        }
+    }
 }
 `;

@@ -1,8 +1,6 @@
 import {
     GraphQLResolveInfo,
-    GraphQLIsTypeOfFn,
     GraphQLTypeResolver,
-    GraphQLScalarType,
 } from 'graphql';
 import {IScalar} from "./PluginManagers/ScalarPluginManager";
 
@@ -11,7 +9,7 @@ export interface IResolverOptions<TSource = any, TContext = any> {
     subscribe?: IFieldResolver<TSource, TContext>;
 }
 
-export type IFieldResolver<TSource, TContext> = (
+export type IFieldResolver<TSource = any, TContext = any> = (
     source: TSource,
     args: { [argument: string]: any; },
     context: TContext,
@@ -22,15 +20,15 @@ export type IResolverObject<TSource = any, TContext = any> = {
     [key: string]: IFieldResolver<TSource, TContext> | IResolverOptions;
 };
 
-export type IEnumResolver = {
-    [key: string]: any;
+export type IEnumResolver<T= any> = {
+    [key: string]: T;
 };
 
 export interface IResolvers<TSource = any, TContext = any> {
     [key: string]:
         (() => any) |
         IResolverObject<TSource, TContext> |
-        GraphQLTypeResolver<any, any> |
+        GraphQLTypeResolver<TSource, TContext> |
         IScalar |
         IEnumResolver;
 }

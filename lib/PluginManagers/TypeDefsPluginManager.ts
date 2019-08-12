@@ -1,7 +1,10 @@
 import {PluginDefinition, IPluginSource} from "zox-plugins";
 
-export type TypeDefsOptions = {
-    typeDefs?: string | Array<string>
+export type MaybeDeepArray<T> = T | T[] | T[][] | T[][][]
+
+export interface TypeDefsOptions
+{
+    typeDefs?: MaybeDeepArray<string>;
 }
 
 export abstract class TypeDefsPluginManager<TPlugin, TData>
@@ -20,24 +23,29 @@ export abstract class TypeDefsPluginManager<TPlugin, TData>
         const typeDefs: Array<string> = [];
         for (const pluginDefinition of this.pluginDefinitions)
         {
-            if (typeof pluginDefinition.data.typeDefs === 'string')
+            flatForEach(pluginDefinition.data.typeDefs, typeDef =>
             {
-                if (typeDefs.indexOf(pluginDefinition.data.typeDefs) < 0)
+                if (typeDefs.indexOf(typeDef) < 0)
                 {
-                    typeDefs.push(pluginDefinition.data.typeDefs);
+                    typeDefs.push(typeDef);
                 }
-            }
-            else if (typeof pluginDefinition.data.typeDefs !== 'undefined')
-            {
-                for (const typeDef of pluginDefinition.data.typeDefs)
-                {
-                    if (typeDefs.indexOf(typeDef) < 0)
-                    {
-                        typeDefs.push(typeDef);
-                    }
-                }
-            }
+            });
         }
         return typeDefs;
+    }
+}
+
+function flatForEach<T>(arr: MaybeDeepArray<T>, callback: (item: T) => void)
+{
+    if ((Array.isArray(arr)))
+    {
+        for (const item of arr)
+        {
+            flatForEach(item, callback);
+        }
+    }
+    else
+    {
+        callback(arr);
     }
 }

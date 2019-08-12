@@ -1,6 +1,6 @@
 import {IPluginSource} from "zox-plugins";
 import {GraphQLSchema} from "graphql";
-import {makeSchema} from "./MakeSchema";
+import {makeSchema} from "./makeSchema";
 import {
     MutationPluginManager,
     QueryPluginManager,
@@ -11,6 +11,7 @@ import {ResolveTypePluginManager} from "./PluginManagers/ResolveTypePluginManage
 import {ScalarPluginManager} from "./PluginManagers/ScalarPluginManager";
 import {IResolvers} from "./Interfaces";
 import {EnumPluginManager} from "./PluginManagers/EnumPluginManager";
+import {ResolversPluginManager} from "./PluginManagers/ResolversPluginManager";
 
 export type AssembledSchema = {
     schema: GraphQLSchema
@@ -18,7 +19,7 @@ export type AssembledSchema = {
 
 export type AssembledSchemaData = {
     typeDefs: string,
-    resolvers: IResolvers<any, any>
+    resolvers: IResolvers
 }
 
 export function assembleSchema(pluginDiscovery: IPluginSource, options?: ResolverBuildOptions): AssembledSchema
@@ -34,6 +35,7 @@ export function assembleSchemaData(pluginDiscovery: IPluginSource, options?: Res
     const mutationPluginManager = new MutationPluginManager(pluginDiscovery);
     const subscriptionPluginManager = new SubscriptionPluginManager(pluginDiscovery);
     const resolverPluginManager = new ResolverPluginManager(pluginDiscovery);
+    const resolversPluginManager = new ResolversPluginManager(pluginDiscovery);
     const interfacePluginManager = new ResolveTypePluginManager(pluginDiscovery);
     const scalarPluginManager = new ScalarPluginManager(pluginDiscovery);
     const enumPluginManager = new EnumPluginManager(pluginDiscovery);
@@ -42,6 +44,7 @@ export function assembleSchemaData(pluginDiscovery: IPluginSource, options?: Res
     const mutationDefinition = mutationPluginManager.getBuild(options);
     const subscriptionDefinition = subscriptionPluginManager.getBuild(options);
     const resolverDefinitions = resolverPluginManager.getResolvers(options);
+    const resolversDefinition = resolversPluginManager.getBuild(options);
     const interfaceDefinitions = interfacePluginManager.getResolvers(options);
     const scalarDefinitions = scalarPluginManager.getResolvers(options);
     const enumDefinitions = enumPluginManager.getEnumDefs(options);
@@ -49,7 +52,8 @@ export function assembleSchemaData(pluginDiscovery: IPluginSource, options?: Res
     const queriesSubTypeDefList = queryPluginManager.getTypeDefList();
     const mutationsSubTypeDefList = mutationPluginManager.getTypeDefList();
     const subscriptionsSubTypeDefList = subscriptionPluginManager.getTypeDefList();
-    const resolversSubTypeDefList = resolverPluginManager.getTypeDefList();
+    const resolverSubTypeDefList = resolverPluginManager.getTypeDefList();
+    const resolversSubTypeDefList = resolversPluginManager.getTypeDefList();
     const interfaceSubTypeDefList = interfacePluginManager.getTypeDefList();
     const scalarSubTypeDefList = scalarPluginManager.getTypeDefList();
 
@@ -57,6 +61,7 @@ export function assembleSchemaData(pluginDiscovery: IPluginSource, options?: Res
         queriesSubTypeDefList,
         mutationsSubTypeDefList,
         subscriptionsSubTypeDefList,
+        resolverSubTypeDefList,
         resolversSubTypeDefList,
         interfaceSubTypeDefList,
         scalarSubTypeDefList,
@@ -67,19 +72,21 @@ export function assembleSchemaData(pluginDiscovery: IPluginSource, options?: Res
         queryDefinition.typeDef +
         mutationDefinition.typeDef +
         subscriptionDefinition.typeDef +
+        resolversDefinition.typeDef +
         subTypeDefs;
 
-    const resolvers = Object.assign({},
+    const resolvers = mergeResolvers(
         queryDefinition.resolvers,
         mutationDefinition.resolvers,
         subscriptionDefinition.resolvers,
         resolverDefinitions,
+        resolversDefinition.resolvers,
         interfaceDefinitions,
         scalarDefinitions,
         enumDefinitions.values,
     );
 
-    return { typeDefs, resolvers };
+    return {typeDefs, resolvers};
 }
 
 export function joinDistinct(typeDefLists: Array<Array<string>>): string
@@ -96,4 +103,26 @@ export function joinDistinct(typeDefLists: Array<Array<string>>): string
         }
     }
     return typeDefs.join('');
+}
+
+export function mergeResolvers(...resolversArr: IResolvers[]): IResolvers
+{
+    const result: IResolvers = {};
+    let Query;
+    let Mutation;
+    for (const resolverGroup of resolversArr)
+    {
+        if (resolverGroup.Query)
+        {
+            Query = Query || {};
+            Object.assign(Query, resolverGroup.Query);
+        }
+        if (resolverGroup.Mutation)
+        {
+            Mutation = Mutation || {};
+            Object.assign(Mutation, resolverGroup.Mutation);
+        }
+    }
+    Object.assign(result, ...resolversArr, {Query, Mutation});
+    return result;
 }

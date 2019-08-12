@@ -6,6 +6,7 @@ export type User = {
     friends: Array<number>
 } & Node;
 
+// language=GraphQL
 export const UserDef = `
 type User implements Node
 {

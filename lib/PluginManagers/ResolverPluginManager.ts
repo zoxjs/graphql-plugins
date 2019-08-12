@@ -30,10 +30,10 @@ export class ResolverPluginManager extends TypeDefsPluginManager<IClass<IResolve
         return pluginKey;
     }
 
-    public getResolvers(options?: ResolverBuildOptions): IResolvers<any, any>
+    public getResolvers(options?: ResolverBuildOptions): IResolvers
     {
         options = options || {};
-        const resolvers: IResolvers<any, any> = {};
+        const resolvers: IResolvers = {};
         const resolverClassNames: { [type:string]: {[field:string]: string } } = {};
         for (const pluginDefinition of this.pluginDefinitions)
         {

@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 import {PluginDiscovery} from "zox-plugins";
 import {testList} from "./TestQueries";
-import {assembleSchema} from "../lib/SchemaAssembler";
+import {assembleSchema} from "../lib/assembleSchema";
 import {graphql, introspectionQuery} from "graphql";
 
 (async function example() {

@@ -7,19 +7,32 @@ import {
     GraphQLUnionType
 } from "graphql/type/definition";
 import {GraphQLSchema} from "graphql/type/schema";
-import {buildSchema, GraphQLTypeResolver} from "graphql";
+import {
+    parse,
+    buildASTSchema,
+    Source,
+    ParseOptions,
+    BuildSchemaOptions,
+    GraphQLTypeResolver
+} from "graphql";
+import Maybe from "graphql/tsutils/Maybe";
 import {IResolvers} from "./Interfaces";
 import {IScalar} from "./PluginManagers/ScalarPluginManager";
-import Maybe from "graphql/tsutils/Maybe";
+import {mergeExtensions} from './mergeExtensions';
 
-export function makeSchema(typeDefs: string, resolvers: IResolvers<any, any>): GraphQLSchema
+export function makeSchema(typeDefs: string, resolvers: IResolvers): GraphQLSchema
 {
-    const schema: GraphQLSchema = buildSchema(typeDefs);
+    const schema: GraphQLSchema = buildCompleteSchema(typeDefs);
     assignResolvers(schema, resolvers);
     return schema;
 }
 
-export function assignResolvers(schema: GraphQLSchema, resolvers: IResolvers<any, any>): void
+export function buildCompleteSchema(source: string | Source, options?: ParseOptions & BuildSchemaOptions)
+{
+    return buildASTSchema(mergeExtensions(parse(source, options)), options);
+}
+
+export function assignResolvers(schema: GraphQLSchema, resolvers: IResolvers): void
 {
     const rTypeNames = Object.getOwnPropertyNames(resolvers);
     for (const typeName of rTypeNames)
@@ -28,25 +41,30 @@ export function assignResolvers(schema: GraphQLSchema, resolvers: IResolvers<any
         const type: Maybe<GraphQLNamedType> = schema.getType(typeName);
         if (type instanceof GraphQLObjectType)
         {
-            const trNames = Object.getOwnPropertyNames(typeResolvers);
-            for (const resolverName of trNames)
+            const typeFields = type.getFields();
+            const resolverNames = Object.getOwnPropertyNames(typeResolvers);
+            for (const resolverName of resolverNames)
             {
                 const resolver = typeResolvers[resolverName];
-                if (typeof resolver === 'function')
+                const typeField = typeFields[resolverName];
+                if (typeField)
                 {
-                    type.getFields()[resolverName]['resolve'] = resolver;
-                }
-                else if (typeof resolver === 'object' && typeof resolver.resolve === 'function')
-                {
-                    type.getFields()[resolverName]['resolve'] = resolver.resolve;
-                    type.getFields()[resolverName]['subscribe'] = resolver.subscribe;
-                }
-                else
-                {
-                    throw new Error('Invalid resolver of type: ' + typeof resolver);
+                    if (typeof resolver === 'function')
+                    {
+                        typeField.resolve = resolver;
+                    }
+                    else if (typeof resolver === 'object' && typeof resolver.resolve === 'function')
+                    {
+                        typeField.resolve = resolver.resolve;
+                        typeField.subscribe = resolver.subscribe;
+                    }
+                    else
+                    {
+                        throw new Error('Invalid resolver of type: ' + typeof resolver);
+                    }
                 }
             }
-        }
+    }
         else if (type instanceof GraphQLInterfaceType || type instanceof GraphQLUnionType)
         {
             type.resolveType = typeResolvers as GraphQLTypeResolver<any, any>;

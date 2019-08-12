@@ -16,7 +16,7 @@ export type QueryOptions = {
 
 export type Build = {
     typeDef: string,
-    resolvers: IResolvers<any, any>
+    resolvers: IResolvers
 };
 
 export abstract class QueryPluginManagerBase<TResolver> extends TypeDefsPluginManager<IClass<TResolver>, QueryOptions>
