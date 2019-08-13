@@ -48,7 +48,7 @@ export function assembleSchemaData(pluginDiscovery: IPluginSource, options?: Res
     const resolverDefinitions = resolverPluginManager.getResolvers(options);
     const resolversDefinition = resolversPluginManager.getBuild(options);
     const interfaceDefinitions = interfacePluginManager.getResolvers(options);
-    const scalarDefinitions = scalarPluginManager.getResolvers(options);
+    const scalarDefinition = scalarPluginManager.getBuild(options);
     const enumDefinitions = enumPluginManager.getEnumDefs(options);
 
     const queriesSubTypeDefList = queryPluginManager.getTypeDefList();
@@ -57,7 +57,6 @@ export function assembleSchemaData(pluginDiscovery: IPluginSource, options?: Res
     const resolverSubTypeDefList = resolverPluginManager.getTypeDefList();
     const resolversSubTypeDefList = resolversPluginManager.getTypeDefList();
     const interfaceSubTypeDefList = interfacePluginManager.getTypeDefList();
-    const scalarSubTypeDefList = scalarPluginManager.getTypeDefList();
 
     const subTypeDefs = joinDistinct([
         queriesSubTypeDefList,
@@ -66,7 +65,6 @@ export function assembleSchemaData(pluginDiscovery: IPluginSource, options?: Res
         resolverSubTypeDefList,
         resolversSubTypeDefList,
         interfaceSubTypeDefList,
-        scalarSubTypeDefList,
         enumDefinitions.typeDefs,
     ]);
 
@@ -75,6 +73,7 @@ export function assembleSchemaData(pluginDiscovery: IPluginSource, options?: Res
         mutationDefinition.typeDef +
         subscriptionDefinition.typeDef +
         resolversDefinition.typeDef +
+        scalarDefinition.typeDef +
         subTypeDefs;
 
     const resolvers = mergeResolvers(
@@ -84,7 +83,7 @@ export function assembleSchemaData(pluginDiscovery: IPluginSource, options?: Res
         resolverDefinitions,
         resolversDefinition.resolvers,
         interfaceDefinitions,
-        scalarDefinitions,
+        scalarDefinition.resolvers,
         enumDefinitions.values,
     );
 

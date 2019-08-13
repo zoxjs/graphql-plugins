@@ -1,6 +1,5 @@
 import {UserDef} from '../User/User';
 import {Node, NodeDef} from '../Node/Node';
-import {DateDef} from '../../../lib/Plugins/DateScalar';
 
 export interface Post extends Node
 {
@@ -20,4 +19,4 @@ type Post implements Node
 }
 `;
 
-export const PostTypeDefs = [PostDef, UserDef, NodeDef, DateDef];
+export const PostTypeDefs = [PostDef, UserDef, NodeDef];

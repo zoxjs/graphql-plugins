@@ -38,8 +38,8 @@ export function testList(schema: GraphQLSchema)
     // testQuery({schema, source: postSetDate, operationName: 'SetDate', variableValues: { date: 1528236000321 }});
     // testQuery({schema, source: postSetDate, operationName: 'GetNewList'});
     // testQuery({schema, source: reqexpSearch});
-    // testQuery({schema, source: enumExample});
-    testQuery({schema, source: itemExample});
+    testQuery({schema, source: enumExample});
+    // testQuery({schema, source: itemExample});
     // testListSubscription(schema);
 }
 

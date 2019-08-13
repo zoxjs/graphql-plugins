@@ -16,7 +16,7 @@ export interface ResolverBuildOptions
     decorate?: (resolverClass: any) => void
 }
 
-export interface IClass<T>
+export interface IClass<T = any>
 {
     new (): T
 }

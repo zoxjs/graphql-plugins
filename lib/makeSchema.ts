@@ -64,7 +64,7 @@ export function assignResolvers(schema: GraphQLSchema, resolvers: IResolvers): v
                     }
                 }
             }
-    }
+        }
         else if (type instanceof GraphQLInterfaceType || type instanceof GraphQLUnionType)
         {
             type.resolveType = typeResolvers as GraphQLTypeResolver<any, any>;
@@ -87,6 +87,9 @@ export function assignResolvers(schema: GraphQLSchema, resolvers: IResolvers): v
             for (const resolverName of trNames)
             {
                 type.getValue(resolverName).value = typeResolvers[resolverName];
+                // @ts-ignore
+                const valueLookup = type._valueLookup as Map<any, any>;
+                valueLookup.set(typeResolvers[resolverName], valueLookup.get(resolverName));
             }
         }
         else
